@@ -17,5 +17,5 @@
 	<dubbo:registry protocol="zookeeper" address="192.168.144.134:2181" />
 	<!-- 用dubbo协议在20880端口暴露服务 -->
 	<dubbo:protocol name="dubbo" port="20880" />
-
+	<dubbo:service interface="xin.liuyiq.taotao.service.ItemService" ref="itemServiceImpl" timeout="300000"/>
 </beans>
