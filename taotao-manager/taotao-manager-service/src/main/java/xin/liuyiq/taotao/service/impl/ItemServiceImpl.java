@@ -4,12 +4,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import xin.liuyiq.taotao.mapper.TbItemDescMapper;
 import xin.liuyiq.taotao.mapper.TbItemMapper;
-import xin.liuyiq.taotao.pojo.EasyUIDataGridResult;
-import xin.liuyiq.taotao.pojo.TbItem;
-import xin.liuyiq.taotao.pojo.TbItemExample;
+import xin.liuyiq.taotao.pojo.*;
 import xin.liuyiq.taotao.service.ItemService;
+import xin.liuyiq.taotao.utils.IDUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,6 +26,12 @@ public class ItemServiceImpl implements ItemService {
      */
     @Autowired
     private TbItemMapper itemMapper;
+
+    /**
+     * 注入itemDescMapper
+     */
+    @Autowired
+    private TbItemDescMapper itemDescMapper;
 
     /**
      * 分页查询,将获取到的信息封装到EasyUIDataGridResult对象中.
@@ -47,5 +54,34 @@ public class ItemServiceImpl implements ItemService {
         result.setTotal(pageInfo.getTotal());
         result.setRows(items);
         return result;
+    }
+
+    /**
+     * 添加商品信息的接口.
+     * @param tbItem tbItem封装页面传递的商品参数.
+     * @param desc   desc接收商品描述信息.
+     * @return 自定义响应结构.
+     */
+    @Override
+    public TaotaoResult addItem(TbItem tbItem, String desc) {
+        long id = IDUtils.genItemId();
+        tbItem.setId(id);
+        Date date = new Date();
+        tbItem.setCreated(date);
+        tbItem.setUpdated(date);
+        // 商品状态，1-正常，2-下架，3-删除
+        tbItem.setStatus((byte) 1);
+        // 插入商品信息
+        itemMapper.insert(tbItem);
+
+        TbItemDesc tbItemDesc = new TbItemDesc();
+        tbItemDesc.setItemId(id);
+        tbItemDesc.setCreated(date);
+        tbItemDesc.setUpdated(date);
+        tbItemDesc.setItemDesc(desc);
+        // 向商品描述表中插入数据
+        itemDescMapper.insert(tbItemDesc);
+
+        return TaotaoResult.ok();
     }
 }
