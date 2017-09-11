@@ -9,7 +9,7 @@
         http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
-
+	<context:property-placeholder location="classpath:resources/resource.properties"/>
     <context:component-scan base-package="xin.liuyiq.taotao.portal.controller" />
 
 	<mvc:annotation-driven />
@@ -20,7 +20,7 @@
 	</bean>
 
 	<!-- 引用dubbo服务 -->
-	<!--<dubbo:application name="taotao-portal-web"/>
-	<dubbo:registry protocol="zookeeper" address="192.168.144.134:2181"/>-->
-	<!--<dubbo:reference interface="xin.liuyiq.taotao.service.ItemService" id="itemServiceImpl" timeout="300000"/>-->
+	<dubbo:application name="taotao-portal-web"/>
+	<dubbo:registry protocol="zookeeper" address="192.168.144.134:2181"/>
+	<dubbo:reference interface="xin.liuyiq.taotao.content.service.ContentService" id="contentServiceImpl" timeout="300000"/>
 </beans>
