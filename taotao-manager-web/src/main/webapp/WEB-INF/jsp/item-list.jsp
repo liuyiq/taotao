@@ -171,5 +171,15 @@
         	    }
         	});
         }
-    }];
+    },{
+        text:'商品一键导入到索引库',
+        iconCls:'icon-add',
+        handler:function(){
+            alert(111)
+            $.post("/index/import",null, function(){
+                $.messager.alert('提示','导入成功');
+            });
+        }
+    }
+    ];
 </script>

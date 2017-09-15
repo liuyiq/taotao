@@ -38,4 +38,5 @@
 	<dubbo:reference interface="xin.liuyiq.taotao.service.ItemCatService" id="itemCatServiceImpl" timeout="300000"/>
 	<dubbo:reference interface="xin.liuyiq.taotao.content.service.ContentCatService" id="contentCatServiceImpl" timeout="300000"/>
 	<dubbo:reference interface="xin.liuyiq.taotao.content.service.ContentService" id="contentServiceImpl" timeout="300000"/>
+	<dubbo:reference interface="xin.liuyiq.taotao.search.service.SearchItemService" id="searchItemServiceImpl" timeout="300000"/>
 </beans>
